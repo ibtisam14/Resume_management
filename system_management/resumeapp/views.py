@@ -4,13 +4,19 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Resume
-from .serializers import ResumeSerializer, RegisterSerializer, CustomTokenObtainPairSerializer
+from .serializers import ResumeSerializer, RegisterSerializer, CustomTokenObtainPairSerializer, ResumeReviewSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.parsers import MultiPartParser, FormParser
+
+
 
 # Register API
 class RegisterView(APIView):
+
+    @swagger_auto_schema(request_body=RegisterSerializer)
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
@@ -25,7 +31,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 # Resume Submit API
 class ResumeSubmitView(APIView):
     permission_classes = [IsAuthenticated]
-
+    parser_classes = [MultiPartParser, FormParser]
+    @swagger_auto_schema(
+        request_body=ResumeSerializer,
+        manual_parameters=[]
+    )
     def post(self, request):
         serializer = ResumeSerializer(data=request.data)
         if serializer.is_valid():
@@ -35,7 +45,7 @@ class ResumeSubmitView(APIView):
 
 class ResumeReviewView(APIView):
     permission_classes = [IsAdminUser]
-
+    @swagger_auto_schema(request_body=ResumeReviewSerializer)
     def post(self, request, resume_id):
         try:
             resume = Resume.objects.get(id=resume_id)

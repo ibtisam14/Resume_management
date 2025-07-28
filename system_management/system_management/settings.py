@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'resumeapp',
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_yasg'
 ]
 
 AUTH_USER_MODEL = 'resumeapp.CustomUser'
