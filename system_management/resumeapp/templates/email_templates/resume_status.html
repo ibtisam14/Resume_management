@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Resume Review Status</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2e6da4;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .accepted {
+            color: #28a745;
+            font-weight: bold;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .rejected {
+            color: #dc3545;
+            font-weight: bold;
+            background: #fdecea;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Resume Review Status</h2>
+        <p>Dear <strong>{{ username }}</strong>,</p>
+
+        {% if status == "ACCEPTED" %}
+            <div class="accepted">
+                ✅ <strong>Congratulations!</strong> Your resume has been <strong>ACCEPTED</strong>.
+            </div>
+            <p>We are impressed with your qualifications and would like to proceed to the next stage.</p>
+        {% else %}
+            <div class="rejected">
+                ❌ <strong>Update:</strong> Your resume has been <strong>REJECTED</strong>.
+            </div>
+            <p>We appreciate your effort and encourage you to apply again in the future.</p>
+        {% endif %}
+
+        <p>Thank you for your interest in joining our team.</p>
+
+        <div class="footer">
+            <p>Best regards,<br><strong>The Recruitment Team</strong></p>
+        </div>
+    </div>
+</body>
+</html>
