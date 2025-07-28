@@ -92,7 +92,6 @@ local_settings.py
 db.sqlite3
 
 # media
-media/
-uploads/
-media/uploads/
-system_management/media/
+**/media/
+**/media/uploads/
+
