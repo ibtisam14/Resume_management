@@ -2,4 +2,3 @@ djangorestframework
 djangorestframework-simplejwt
 Django==5.1
 drf-yasg 
-django-seed
