@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'resumeapp_account',
     'rest_framework',
     'rest_framework_simplejwt',
-    'drf_yasg'
+    'drf_yasg',
+    'Django-seed'
 ]
 
 AUTH_USER_MODEL = 'resumeapp_account.CustomUser'
