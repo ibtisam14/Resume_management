@@ -18,21 +18,19 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-        # Add custom claims to the token if needed
         token['email'] = user.email
         token['username'] = user.username
+        token['is_admin'] = user.is_admin
         return token
 
     def validate(self, attrs):
         data = super().validate(attrs)
-        # Add extra fields in response
         return {
             "status": 200,
             "message": "User logged in successfully",
             "data": {
                 "email": self.user.email,
                 "username": self.user.username,
-                "is_admin": self.user.is_staff,  # ✅ Add this line
                 "refresh": data["refresh"],
                 "access": data["access"]
             }
