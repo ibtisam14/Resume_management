@@ -1,24 +1,4 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import Resume
 
-class CustomUserAdmin(UserAdmin):
-    model = CustomUser
-    list_display = ('email', 'username', 'is_staff', 'is_active')
-    list_filter = ('is_staff', 'is_active', 'is_superuser')
-    ordering = ('email',)
-    search_fields = ('email', 'username')  # Replaced 'name' with 'username'
-
-    fieldsets = (
-        (None, {'fields': ('email', 'username', 'password')}),  # Removed 'name'
-        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions')}),
-    )
-
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('email', 'username', 'password1', 'password2', 'is_staff', 'is_active')}
-        ),
-    )
-
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Resume)

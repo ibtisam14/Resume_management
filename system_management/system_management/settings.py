@@ -26,12 +26,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'resumeapp',
+    'resumeapp_account',
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg'
 ]
 
-AUTH_USER_MODEL = 'resumeapp.CustomUser'
+AUTH_USER_MODEL = 'resumeapp_account.CustomUser'
 
 # JWT Authentication
 REST_FRAMEWORK = {
@@ -132,7 +133,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # SimpleJWT Settings (ADDED THIS SECTION)
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),          # Access token valid for 1 day
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),          # Access token valid for 1 day
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),         # Refresh token valid for 7 days
     'ROTATE_REFRESH_TOKENS': False,                      # Issue new refresh token on refresh
     'BLACKLIST_AFTER_ROTATION': True,                    # Invalidate old refresh tokens

@@ -4,29 +4,14 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import Resume
-from .serializers import ResumeSerializer, RegisterSerializer, CustomTokenObtainPairSerializer, ResumeReviewSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.parsers import MultiPartParser, FormParser
+from .serializers import ResumeSerializer, ResumeReviewSerializer
+from resumeapp_account.serializers import RegisterSerializer, CustomTokenObtainPairSerializer
 
-
-
-# Register API
-class RegisterView(APIView):
-
-    @swagger_auto_schema(request_body=RegisterSerializer)
-    def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'status': 201, 'message': 'User registered successfully'}, status=201)
-        return Response({'status': 400, 'message': 'Registration failed', 'errors': serializer.errors}, status=400)
-
-# Login API
-class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
 
 # Resume Submit API
 class ResumeSubmitView(APIView):
@@ -42,6 +27,7 @@ class ResumeSubmitView(APIView):
             serializer.save(user=request.user)
             return Response({'status': 201, 'message': 'Resume submitted'}, status=201)
         return Response({'status': 400, 'message': 'Submission failed', 'errors': serializer.errors}, status=400)
+#review resume
 
 class ResumeReviewView(APIView):
     permission_classes = [IsAdminUser]
