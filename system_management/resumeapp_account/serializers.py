@@ -32,6 +32,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             "data": {
                 "email": self.user.email,
                 "username": self.user.username,
+                "is_admin": self.user.is_staff,  # ✅ Add this line
                 "refresh": data["refresh"],
                 "access": data["access"]
             }
