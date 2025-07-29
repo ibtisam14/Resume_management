@@ -10,7 +10,7 @@ from django.template.loader import render_to_string
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.parsers import MultiPartParser, FormParser
 from .serializers import ResumeSerializer, ResumeReviewSerializer
-from resumeapp_account.serializers import RegisterSerializer, CustomTokenObtainPairSerializer
+from account.serializers import RegisterSerializer, CustomTokenObtainPairSerializer
 
 
 # Resume Submit API
