@@ -71,18 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'system_management.wsgi.application'
 
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'Bearer': {
-            'type': 'apiKey',
-            'name': 'Authorization',
-            'in': 'header',
-            'description': 'JWT Authorization header using the Bearer scheme. Example: "Bearer <your_token>"',
-        }
-    },
-    'USE_SESSION_AUTH': False,
-}
-
 # Database
 DATABASES = {
     'default': {
