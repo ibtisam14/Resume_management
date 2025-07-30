@@ -31,49 +31,47 @@ class ResumeSubmitView(APIView):
         return Response({'status': 400, 'message': 'Submission failed', 'errors': serializer.errors}, status=400)
 
 class ResumeReviewView(APIView):
-    permission_classes = [IsAuthenticated]  # User must be authenticated
+    permission_classes = [IsAuthenticated]
 
     @swagger_auto_schema(request_body=ResumeReviewSerializer)
     def post(self, request, resume_id):
-        # Allow only users where is_admin=True (custom field on user model)
         if not getattr(request.user, 'is_admin', False):
             raise PermissionDenied("Only admins are allowed to review resumes.")
-
         try:
             resume = Resume.objects.get(id=resume_id)
         except Resume.DoesNotExist:
             return Response({'status': 404, 'error': 'Resume not found'}, status=404)
 
-        status_choice = request.data.get('status', '').upper()
-        if status_choice not in ['ACCEPTED', 'REJECTED']:
-            return Response({'status': 400, 'error': 'Invalid status'}, status=400)
+        serializer = ResumeReviewSerializer(instance=resume, data=request.data)
+        if serializer.is_valid():
+            serializer.save()  # will also enforce "cannot re-review"
 
-        resume.status = status_choice
-        resume.save()
+            # Send review result via email
+            user_email = resume.user.email
+            user_name = resume.user.username
+            status_choice = serializer.validated_data['status'].lower()
 
-        # Send review result via email
-        user_email = resume.user.email
-        user_name = resume.user.username
+            template_map = {
+                'accepted': 'email_templates/accepted_template.html',
+                'rejected': 'email_templates/rejected_template.html',
+            }
+            template_name = template_map.get(status_choice)
 
-        if status_choice == 'accepted':
-            template_name = 'email_templates/accepted_template.html'
-        else:
-            template_name = 'email_templates/rejected_template.html'
+            content = render_to_string(template_name, {
+                'username': user_name,
+                'status': status_choice,
+            })
 
-        content = render_to_string(template_name, {
-            'username': user_name,
-            'status': status_choice,
-        })
+            text_content = f"Dear {user_name},\n\nYour resume has been {status_choice}.\n\nRegards,\nRecruitment Team"
 
-        text_content = f"Dear {user_name},\n\nYour resume has been {status_choice}.\n\nRegards,\nRecruitment Team"
+            email = EmailMultiAlternatives(
+                subject='Resume Review Result',
+                body=text_content,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[user_email]
+            )
+            email.attach_alternative(content, "text/html")
+            email.send()
 
-        email = EmailMultiAlternatives(
-            subject='Resume Review Result',
-            body=text_content,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            to=[user_email]
-        )
-        email.attach_alternative(content, "text/html")
-        email.send()
-
-        return Response({'status': 200, 'message': f'Resume {status_choice.lower()}'})
+            return Response({'status': 200, 'message': f'Resume {status_choice}'})
+        return Response({'status': 400, 'errors': serializer.errors}, status=400)
