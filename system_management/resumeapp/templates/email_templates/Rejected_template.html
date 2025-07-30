@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Resume Review Status</title>
+    <title>Resume Review Update</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -25,13 +25,6 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
-        .accepted {
-            color: #28a745;
-            font-weight: bold;
-            background: #e8f5e9;
-            padding: 10px;
-            border-radius: 4px;
-        }
         .rejected {
             color: #dc3545;
             font-weight: bold;
@@ -46,26 +39,35 @@
             border-top: 1px solid #eee;
             padding-top: 10px;
         }
+        .feedback {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Resume Review Status</h2>
+        <h2>Resume Review Update</h2>
         <p>Dear <strong>{{ username }}</strong>,</p>
 
-        {% if status == "ACCEPTED" %}
-            <div class="accepted">
-                ✅ <strong>Congratulations!</strong> Your resume has been <strong>ACCEPTED</strong>.
-            </div>
-            <p>We are impressed with your qualifications and would like to proceed to the next stage.</p>
-        {% else %}
-            <div class="rejected">
-                ❌ <strong>Update:</strong> Your resume has been <strong>REJECTED</strong>.
-            </div>
-            <p>We appreciate your effort and encourage you to apply again in the future.</p>
-        {% endif %}
+        <div class="rejected">
+            ❌ <strong>Update:</strong> Your resume has been <strong>REJECTED</strong>.
+        </div>
 
-        <p>Thank you for your interest in joining our team.</p>
+        <p>Thank you for taking the time to apply and share your qualifications with us. We appreciate your interest in our organization.</p>
+
+        <div class="feedback">
+            <h3>Some Suggestions:</h3>
+            <ul>
+                <li>Consider tailoring your resume more closely to the job requirements</li>
+                <li>Highlight specific achievements and measurable results</li>
+                <li>Ensure your most relevant experience is prominently featured</li>
+            </ul>
+        </div>
+
+        <p>While we're unable to move forward with your application at this time, we encourage you to apply for future positions that match your skills and experience.</p>
 
         <div class="footer">
             <p>Best regards,<br><strong>The Recruitment Team</strong></p>

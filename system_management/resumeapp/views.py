@@ -27,7 +27,7 @@ class ResumeSubmitView(APIView):
         serializer = ResumeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
-            return Response({'status': 201, 'message': 'Resume submitted'}, status=201)
+            return Response({'status': 200, 'message': 'Resume submitted'}, status=200)
         return Response({'status': 400, 'message': 'Submission failed', 'errors': serializer.errors}, status=400)
 
 class ResumeReviewView(APIView):
@@ -55,7 +55,12 @@ class ResumeReviewView(APIView):
         user_email = resume.user.email
         user_name = resume.user.username
 
-        html_content = render_to_string('email_templates/resume_status.html', {
+        if status_choice == 'accepted':
+            template_name = 'email_templates/accepted_template.html'
+        else:
+            template_name = 'email_templates/rejected_template.html'
+
+        content = render_to_string(template_name, {
             'username': user_name,
             'status': status_choice,
         })
@@ -68,7 +73,7 @@ class ResumeReviewView(APIView):
             from_email=settings.DEFAULT_FROM_EMAIL,
             to=[user_email]
         )
-        email.attach_alternative(html_content, "text/html")
+        email.attach_alternative(content, "text/html")
         email.send()
 
         return Response({'status': 200, 'message': f'Resume {status_choice.lower()}'})
