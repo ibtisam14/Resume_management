@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d67b135-4aed-488a-b510-dc4ff19004aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/system_management/resumeapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/system_management/resumeapp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/system_management/server/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/system_management/server/settings.py" afterDir="false" />
+    <list default="true" id="6d67b135-4aed-488a-b510-dc4ff19004aa" name="Changes" comment="Urls change , remove django-seed , submit some practice resume using postman that are working fine">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system_management/resumeapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/system_management/resumeapp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +61,19 @@
       <option name="presentableId" value="Default" />
       <updated>1753362111488</updated>
     </task>
+    <task id="LOCAL-00001" summary="Urls change , remove django-seed , submit some practice resume using postman that are working fine">
+      <option name="closed" value="true" />
+      <created>1753860255470</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1753860255470</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Urls change , remove django-seed , submit some practice resume using postman that are working fine" />
+    <option name="LAST_COMMIT_MESSAGE" value="Urls change , remove django-seed , submit some practice resume using postman that are working fine" />
   </component>
 </project>
